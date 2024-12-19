@@ -1,0 +1,51 @@
+<!-- Add New Product Button -->
+
+<table mat-table [dataSource]="(products$ | async) || []">
+  
+  <!-- Serial Number Column -->
+  <ng-container matColumnDef="serialNumber">
+    <th mat-header-cell *matHeaderCellDef>Serial No.</th>
+    <td mat-cell *matCellDef="let product; let i = index">{{ i + 1 }}</td>
+  </ng-container>
+
+  <!-- Product Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+  </ng-container>
+
+  <!-- Product Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+  </ng-container>
+
+  <!-- Product Category Column -->
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef>Category</th>
+    <td mat-cell *matCellDef="let product">{{ product.category }}</td>
+  </ng-container>
+
+  <!-- In Stock Column -->
+  <ng-container matColumnDef="inStock">
+    <th mat-header-cell *matHeaderCellDef>In Stock</th>
+    <td mat-cell *matCellDef="let product">{{ product.inStock }}</td>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let product">
+      <button mat-button [routerLink]="['/edit', product.id]">Edit</button>
+      <button mat-button (click)="deleteProduct(product.id)">Delete</button>
+    </td>
+  </ng-container>
+
+  <!-- Table Header Row -->
+  <tr mat-header-row *matHeaderRowDef="['serialNumber', 'name', 'price', 'category', 'inStock', 'actions']"></tr>
+  
+  <!-- Table Data Row -->
+  <tr mat-row *matRowDef="let row; columns: ['serialNumber', 'name', 'price', 'category', 'inStock', 'actions']"></tr>
+</table>
+<button mat-raised-button color="primary" [routerLink]="['/add']">Add New Product</button>
+
